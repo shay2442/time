@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import "./App.css";
+import Form from "./components/Form"
 
 function App() {
   const [pokemons, setPokemons] = useState([]);
@@ -16,7 +17,7 @@ function App() {
     fetch(`http://localhost:3001/songs/${currentSong}`)
       .then((r) => r.json())
       .then((song) => setSong(song));
-  },[]);
+  },[currentSong]);
 
   // useEffect(() => {
   //   let interval = null;
@@ -68,7 +69,9 @@ function App() {
       <h1>{song ? <img height="100" width="180"src={song.cover}/> : "No song to show"}</h1>
       <h1>{song.title}, {song.genre},${song.price}</h1>
       <br></br>
+      <button onClick={() => setCurrentSong(currentSong - 1)}>Previous Song</button>
       <button onClick={() => setCurrentSong(currentSong + 1)}>Get Random Song</button>
+      <Form song={song} />
       {/* {time}
 <br></br>
 <button onClick={() => setTimerOn(true)}>Start</button>
